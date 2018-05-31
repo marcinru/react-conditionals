@@ -5,22 +5,18 @@ import './App.css';
 
 class App extends Component {
   state = {
-    chars: [],
     inputText: ''
   }
   inputChangeHandler = (event) => {
-    const text = event.target.value;
     this.setState({
-      chars: text.split(''),
-      inputText: text
+      inputText: event.target.value
     })
   }
   charClickHandler = (index) => {
-    const charsCopy = [...this.state.chars]
-    charsCopy.splice(index, 1)
+    const chars = this.state.inputText.split('')
+    chars.splice(index, 1)
     this.setState({
-      chars: charsCopy,
-      inputText: charsCopy.join('')
+      inputText: chars.join('')
     })
   }
   render() {
@@ -29,7 +25,7 @@ class App extends Component {
         <input type="text" value={this.state.inputText} onChange={this.inputChangeHandler} />
         <ValidationComponent textLength={this.state.inputText.length} minLength="5" />
         <p>Length: <b>{this.state.inputText.length}</b></p>
-        {this.state.chars.map((char, index) => {
+        {this.state.inputText.split('').map((char, index) => {
           return <CharComponent char={char} key={index}
                   click={() => this.charClickHandler(index)} />
         })}
