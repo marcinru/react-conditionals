@@ -6,14 +6,12 @@ import './App.css';
 class App extends Component {
   state = {
     chars: [],
-    inputLength: 0,
     inputText: ''
   }
   inputChangeHandler = (event) => {
     const text = event.target.value;
     this.setState({
       chars: text.split(''),
-      inputLength: text.length,
       inputText: text
     })
   }
@@ -22,7 +20,6 @@ class App extends Component {
     charsCopy.splice(index, 1)
     this.setState({
       chars: charsCopy,
-      inputLength: charsCopy.length,
       inputText: charsCopy.join('')
     })
   }
@@ -30,8 +27,8 @@ class App extends Component {
     return (
       <div className="App">
         <input type="text" value={this.state.inputText} onChange={this.inputChangeHandler} />
-        <ValidationComponent textLength={this.state.inputLength} minLength="5" />
-        <p>Length: <b>{this.state.inputLength}</b></p>
+        <ValidationComponent textLength={this.state.inputText.length} minLength="5" />
+        <p>Length: <b>{this.state.inputText.length}</b></p>
         {this.state.chars.map((char, index) => {
           return <CharComponent char={char} key={index}
                   click={() => this.charClickHandler(index)} />
